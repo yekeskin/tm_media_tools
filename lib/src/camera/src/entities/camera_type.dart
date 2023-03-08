@@ -21,8 +21,5 @@ class CameraType {
   // static const _InputType boomerang = _InputType._internal('Boomerang', 3);
 
   ///
-  static const CameraType selfi = CameraType._internal('Selfi', 4);
-
-  ///
-  static List<CameraType> get values => [text, normal, video, selfi];
+  static List<CameraType> get values => [text, normal, video];
 }

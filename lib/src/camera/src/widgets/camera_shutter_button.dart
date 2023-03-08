@@ -193,11 +193,6 @@ class _ShutterButtonState extends State<_ShutterButton>
                     controller: widget.controller,
                     builder: (value, child) {
                       switch (value.cameraType) {
-                        case CameraType.selfi:
-                          return const Icon(
-                            CupertinoIcons.person_fill,
-                            color: Colors.blue,
-                          );
                         case CameraType.video:
                           return _VideoIcon(radius: _videoIconRadius);
                         // ignore: no_default_cases
