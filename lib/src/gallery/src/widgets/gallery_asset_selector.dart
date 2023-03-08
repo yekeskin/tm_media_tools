@@ -156,8 +156,12 @@ class GalleryAssetSelectorState extends State<GalleryAssetSelector>
                               });
                             },
                             label: 'EDIT',
-                            background: Colors.white,
-                            labelColor: Colors.black,
+                            background: Theme.of(context)
+                                .colorScheme
+                                .secondaryContainer,
+                            labelColor: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer,
                           ),
                         ),
                       ),

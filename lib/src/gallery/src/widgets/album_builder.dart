@@ -48,11 +48,11 @@ class AlbumBuilder extends StatelessWidget {
 
         // No data
         if (value.state == BaseState.completed && value.albums.isEmpty) {
-          return const Center(
+          return Center(
             child: Text(
               'No albums available',
               style: TextStyle(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.onSurface,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -60,11 +60,11 @@ class AlbumBuilder extends StatelessWidget {
         }
 
         if (value.state == BaseState.error) {
-          return const Center(
+          return Center(
             child: Text(
               'Something went wrong. Please try again!',
               style: TextStyle(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.onSurface,
                 fontWeight: FontWeight.w700,
               ),
             ),

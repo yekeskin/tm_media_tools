@@ -34,11 +34,11 @@ class AlbumsPage extends StatelessWidget {
         if (value.albums.isEmpty) {
           return Container(
             alignment: Alignment.center,
-            color: Colors.black,
-            child: const Text(
+            color: Theme.of(context).colorScheme.surface,
+            child: Text(
               'No albums',
               style: TextStyle(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.onSurface,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -47,7 +47,7 @@ class AlbumsPage extends StatelessWidget {
 
         // Album list
         return ColoredBox(
-          color: Colors.black,
+          color: Theme.of(context).colorScheme.surface,
           child: ListView.builder(
             padding: const EdgeInsets.only(top: 16),
             itemCount: value.albums.length,
@@ -96,7 +96,7 @@ class _AlbumTile extends StatelessWidget {
       },
       child: Container(
         padding: const EdgeInsets.only(left: 16, bottom: 20, right: 16),
-        color: Colors.black,
+        color: Theme.of(context).colorScheme.surface,
         child: Row(
           children: [
             // Image
@@ -131,8 +131,8 @@ class _AlbumTile extends StatelessWidget {
                     isAll
                         ? 'All Photos'
                         : album.value.assetPathEntity?.name ?? '',
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -141,7 +141,7 @@ class _AlbumTile extends StatelessWidget {
                   Text(
                     album.value.assetPathEntity?.assetCount.toString() ?? '',
                     style: TextStyle(
-                      color: Colors.grey.shade500,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                       fontSize: 13,
                     ),
                   ),

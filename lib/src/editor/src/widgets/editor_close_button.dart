@@ -86,45 +86,19 @@ class _AppDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final cancel = TextButton(
       onPressed: Navigator.of(context).pop,
-      child: Text(
-        'NO',
-        style: Theme.of(context).textTheme.button!.copyWith(
-              color: Colors.lightBlue,
-            ),
-      ),
+      child: const Text('NO'),
     );
     final unselectItems = TextButton(
       onPressed: () {
         Navigator.of(context).pop(true);
       },
-      child: Text(
-        'DISCARD',
-        style: Theme.of(context).textTheme.button!.copyWith(
-              color: Colors.blue,
-            ),
-      ),
+      child: const Text('DISCARD'),
     );
 
     return AlertDialog(
-      title: Text(
-        'Discard changes?',
-        style: Theme.of(context).textTheme.headline6!.copyWith(
-              color: Colors.white70,
-            ),
-      ),
-      content: Text(
-        'Are you sure you want to discard your changes?',
-        style: Theme.of(context).textTheme.bodyText2!.copyWith(
-              color: Colors.grey.shade600,
-            ),
-      ),
+      title: const Text('Discard changes?'),
+      content: const Text('Are you sure you want to discard your changes?'),
       actions: [cancel, unselectItems],
-      backgroundColor: Colors.grey.shade900,
-      titlePadding: const EdgeInsets.all(16),
-      contentPadding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 2,
-      ),
     );
   }
 }

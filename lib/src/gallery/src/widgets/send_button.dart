@@ -28,46 +28,40 @@ class SendButton extends StatelessWidget {
           return AppAnimatedCrossFade(
             crossFadeState: crossFadeState,
             firstChild: const SizedBox(),
-            secondChild: InkWell(
-              onTap: () {
-                Navigator.of(context).pop(value.selectedEntities);
-              },
-              child: Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  child!,
-                  Positioned(
-                    top: -6,
-                    right: 0,
-                    child: CircleAvatar(
-                      backgroundColor: Theme.of(context).colorScheme.secondary,
-                      radius: 12,
-                      child: Text(
-                        '${value.selectedEntities.length}',
-                        style: Theme.of(context).textTheme.caption?.copyWith(
-                              color: Theme.of(context).colorScheme.onSecondary,
-                            ),
-                      ),
+            secondChild: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                FloatingActionButton(
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  elevation: 0,
+                  onPressed: () {
+                    Navigator.of(context).pop(value.selectedEntities);
+                  },
+                  shape: const CircleBorder(),
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  child: Icon(
+                    Icons.send,
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                ),
+                Positioned(
+                  top: -6,
+                  right: 0,
+                  child: CircleAvatar(
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    radius: 12,
+                    child: Text(
+                      '${value.selectedEntities.length}',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context).colorScheme.onSecondary,
+                          ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
         },
-        child: Container(
-          width: 56,
-          height: 56,
-          padding: const EdgeInsets.only(left: 4),
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.white,
-          ),
-          child: const Icon(
-            CustomIcons.send,
-            color: Colors.blue,
-          ),
-        ),
       ),
     );
   }

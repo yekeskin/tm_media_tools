@@ -56,7 +56,7 @@ class _GalleryHeaderState extends State<GalleryHeader> {
         minHeight: panelSetting.thumbHandlerHeight,
         maxHeight: panelSetting.headerHeight + panelSetting.thumbHandlerHeight,
       ),
-      color: panelSetting.headerBackground,
+      color: Theme.of(context).colorScheme.surface,
       child: Column(
         children: [
           // Handler
@@ -113,8 +113,10 @@ class _GalleryHeaderState extends State<GalleryHeader> {
                               child: Icon(
                                 CupertinoIcons.rectangle_stack,
                                 color: value.enableMultiSelection
-                                    ? Colors.white
-                                    : Colors.white38,
+                                    ? Theme.of(context).colorScheme.onSurface
+                                    : Theme.of(context)
+                                        .colorScheme
+                                        .onSurfaceVariant,
                               ),
                             );
                           },
@@ -216,7 +218,7 @@ class _IconButton extends StatelessWidget {
         padding: EdgeInsets.zero,
         icon: Icon(
           iconData ?? Icons.close,
-          color: Colors.lightBlue.shade300,
+          color: Theme.of(context).colorScheme.onSurface,
           size: size ?? 26.0,
         ),
         onPressed: onPressed,
@@ -257,10 +259,7 @@ class _AlbumDetail extends StatelessWidget {
               isAll
                   ? controller.setting.albumTitle
                   : album.value.assetPathEntity?.name ?? 'Unknown',
-              style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
+              style: Theme.of(context).textTheme.titleSmall,
             );
           },
         ),
@@ -270,10 +269,9 @@ class _AlbumDetail extends StatelessWidget {
         // Receiver name
         Text(
           subtitle ?? 'Select',
-          style: Theme.of(context)
-              .textTheme
-              .caption!
-              .copyWith(color: Colors.grey.shade500),
+          style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
         ),
       ],
     );

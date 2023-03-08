@@ -37,8 +37,10 @@ class EditorShutterButton extends StatelessWidget {
           firstChild: const SizedBox(),
           secondChild: IgnorePointer(
             ignoring: crossFadeState == CrossFadeState.showFirst,
-            child: InkWell(
-              onTap: () async {
+            child: FloatingActionButton(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              elevation: 0,
+              onPressed: () async {
                 if (controller.value.isColorPickerOpen) {
                   controller.updateValue(isColorPickerOpen: false);
                   return;
@@ -59,18 +61,11 @@ class EditorShutterButton extends StatelessWidget {
                   );
                 }
               },
-              child: Container(
-                width: 56,
-                height: 56,
-                padding: const EdgeInsets.only(left: 4),
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white,
-                ),
-                child: const Icon(
-                  CustomIcons.send,
-                  color: Colors.blue,
-                ),
+              shape: const CircleBorder(),
+              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              child: Icon(
+                Icons.send,
+                color: Theme.of(context).colorScheme.onPrimary,
               ),
             ),
           ),

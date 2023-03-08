@@ -31,7 +31,7 @@ class GalleryGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
-      color: controller.panelSetting.foregroundColor,
+      color: Theme.of(context).colorScheme.surface,
       child: CurrentAlbumBuilder(
         albums: albums,
         builder: (context, album, child) {
@@ -110,8 +110,8 @@ class GalleryGridView extends StatelessWidget {
                           });
                         },
                         child: Icon(
-                          CupertinoIcons.camera,
-                          color: Colors.lightBlue.shade300,
+                          Icons.camera_alt,
+                          color: Theme.of(context).colorScheme.onBackground,
                           size: 26,
                         ),
                       );
@@ -213,11 +213,11 @@ class _SelectionCount extends StatelessWidget {
 
         if (isSelected) {
           counter = CircleAvatar(
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme.of(context).colorScheme.primary,
             radius: 14,
             child: Text(
               '${index + 1}',
-              style: Theme.of(context).textTheme.button?.copyWith(
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(
                     color: Theme.of(context).colorScheme.onPrimary,
                   ),
             ),

@@ -36,7 +36,6 @@ class GalleryView extends StatefulWidget {
   /// Pick media
   static Future<List<DrishyaEntity>?> pick(
     BuildContext context, {
-
     /// Gallery controller
     GalleryController? controller,
 
@@ -171,43 +170,19 @@ class _ViewState extends State<_View> with SingleTickerProviderStateMixin {
   void _showAlert() {
     final cancel = TextButton(
       onPressed: Navigator.of(context).pop,
-      child: Text(
-        'CANCEL',
-        style: Theme.of(context).textTheme.button!.copyWith(
-              color: Colors.lightBlue,
-            ),
-      ),
+      child: const Text('Cancel'),
     );
     final unselectItems = TextButton(
       onPressed: _onSelectionClear,
-      child: Text(
-        'USELECT ITEMS',
-        style: Theme.of(context).textTheme.button!.copyWith(
-              color: Colors.blue,
-            ),
-      ),
+      child: const Text('Unselect'),
     );
 
     final alertDialog = AlertDialog(
-      title: Text(
-        'Unselect these items?',
-        style: Theme.of(context).textTheme.headline6!.copyWith(
-              color: Colors.white70,
-            ),
-      ),
-      content: Text(
+      title: const Text('Unselect these items?'),
+      content: const Text(
         'Going back will undo the selections you made.',
-        style: Theme.of(context).textTheme.bodyText2!.copyWith(
-              color: Colors.grey.shade600,
-            ),
       ),
       actions: [cancel, unselectItems],
-      backgroundColor: Colors.grey.shade900,
-      titlePadding: const EdgeInsets.all(16),
-      contentPadding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 2,
-      ),
     );
 
     showDialog<void>(
@@ -310,15 +285,6 @@ class _ViewState extends State<_View> with SingleTickerProviderStateMixin {
                       );
 //
                     },
-                  ),
-
-                  // Divider
-                  Divider(
-                    color: Colors.lightBlue.shade300,
-                    thickness: 0.5,
-                    height: 0.5,
-                    indent: 0,
-                    endIndent: 0,
                   ),
 
                   // Gallery grid
