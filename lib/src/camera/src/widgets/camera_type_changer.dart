@@ -2,7 +2,6 @@
 
 import 'dart:math';
 
-import 'package:drishya_picker/assets/icons/custom_icons.dart';
 import 'package:flutter/material.dart';
 
 import '../controllers/cam_controller.dart';
@@ -47,7 +46,7 @@ class CameraTypeChanger extends StatelessWidget {
                 child: Transform.rotate(
                   angle: -pi / 2,
                   child: const Icon(
-                    CustomIcons.play,
+                    Icons.play_arrow,
                     color: Colors.white,
                   ),
                 ),

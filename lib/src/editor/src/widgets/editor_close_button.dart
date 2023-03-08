@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:drishya_picker/assets/icons/custom_icons.dart';
 import 'package:drishya_picker/drishya_picker.dart';
 import 'package:drishya_picker/src/animations/animations.dart';
 import 'package:drishya_picker/src/camera/src/widgets/ui_handler.dart';
@@ -68,9 +67,8 @@ class EditorCloseButton extends StatelessWidget {
               color: Colors.black26,
             ),
             child: const Icon(
-              CustomIcons.close,
+              Icons.close,
               color: Colors.white,
-              size: 16,
             ),
           ),
         ),

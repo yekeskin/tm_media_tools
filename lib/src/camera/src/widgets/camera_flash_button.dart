@@ -1,7 +1,6 @@
 // ignore_for_file: always_use_package_imports
 
 import 'package:camera/camera.dart';
-import 'package:drishya_picker/assets/icons/custom_icons.dart';
 import 'package:flutter/material.dart';
 
 import '../controllers/cam_controller.dart';
@@ -36,12 +35,9 @@ class CameraFlashButton extends StatelessWidget {
               shape: BoxShape.circle,
               color: Colors.black26,
             ),
-            child: Padding(
-              padding: EdgeInsets.only(left: isOn ? 8.0 : 0.0),
-              child: Icon(
-                isOn ? CustomIcons.flashon : CustomIcons.flashoff,
-                color: Colors.white,
-              ),
+            child: Icon(
+              isOn ? Icons.flash_on : Icons.flash_off,
+              color: Colors.white,
             ),
           ),
         );

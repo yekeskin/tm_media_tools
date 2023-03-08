@@ -4,7 +4,6 @@ import 'dart:math';
 
 import 'package:drishya_picker/drishya_picker.dart';
 import 'package:drishya_picker/src/camera/src/widgets/camera_builder.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 ///

@@ -1,4 +1,3 @@
-import 'package:drishya_picker/assets/icons/custom_icons.dart';
 import 'package:drishya_picker/drishya_picker.dart';
 import 'package:drishya_picker/src/camera/src/widgets/camera_builder.dart';
 import 'package:drishya_picker/src/camera/src/widgets/ui_handler.dart';
@@ -35,9 +34,8 @@ class CameraCloseButton extends StatelessWidget {
             color: Colors.black26,
           ),
           child: const Icon(
-            CustomIcons.close,
+            Icons.close,
             color: Colors.white,
-            size: 16,
           ),
         ),
       ),

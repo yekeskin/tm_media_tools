@@ -8,7 +8,6 @@ import 'package:drishya_picker/src/camera/src/widgets/raw_camera_view.dart';
 import 'package:drishya_picker/src/camera/src/widgets/ui_handler.dart';
 import 'package:drishya_picker/src/gallery/src/widgets/gallery_builder.dart';
 import 'package:drishya_picker/src/gallery/src/widgets/gallery_permission_view.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -45,7 +44,6 @@ class CameraView extends StatefulWidget {
   /// Open camera view for picking.
   static Future<List<DrishyaEntity>?> pick(
     BuildContext context, {
-
     /// Camera controller
     CamController? controller,
 
@@ -277,7 +275,7 @@ class _GalleryView extends StatelessWidget {
               child: const Padding(
                 padding: EdgeInsets.all(8),
                 child: Icon(
-                  CupertinoIcons.camera_circle_fill,
+                  Icons.camera_alt,
                   color: Colors.white,
                   size: 40,
                 ),

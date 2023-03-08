@@ -4,7 +4,6 @@ import 'package:drishya_picker/drishya_picker.dart';
 import 'package:drishya_picker/src/gallery/src/repo/gallery_repository.dart';
 import 'package:drishya_picker/src/gallery/src/widgets/album_builder.dart';
 import 'package:drishya_picker/src/gallery/src/widgets/gallery_builder.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -111,7 +110,7 @@ class _GalleryHeaderState extends State<GalleryHeader> {
                                 }
                               },
                               child: Icon(
-                                CupertinoIcons.rectangle_stack,
+                                Icons.collections,
                                 color: value.enableMultiSelection
                                     ? Theme.of(context).colorScheme.onSurface
                                     : Theme.of(context)
