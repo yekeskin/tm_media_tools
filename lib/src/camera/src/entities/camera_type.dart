@@ -12,7 +12,7 @@ class CameraType {
   static const CameraType text = CameraType._internal('Text', 0);
 
   ///
-  static const CameraType normal = CameraType._internal('Normal', 1);
+  static const CameraType normal = CameraType._internal('Photo', 1);
 
   ///
   static const CameraType video = CameraType._internal('Video', 2);
