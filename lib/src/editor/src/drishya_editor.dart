@@ -114,7 +114,8 @@ class _DrishyaEditorState extends State<DrishyaEditor> {
             ),
 
             //
-            EditorTextfieldButton(controller: _controller),
+            if (widget.hideOverlay)
+              EditorTextfieldButton(controller: _controller),
 
             // Textfield
             EditorTextfield(controller: _controller),

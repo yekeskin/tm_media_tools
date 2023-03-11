@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
@@ -231,4 +232,48 @@ class _EntityBGViewState extends State<_EntityBGView> {
       },
     );
   }
+}
+
+///
+@immutable
+class FileImageBackground implements EditorBackground {
+  ///
+  /// Background for memory asset
+  const FileImageBackground({required this.file});
+
+  /// Asset bytes
+  final File file;
+
+  @override
+  Widget build(BuildContext context) => DecoratedBox(
+        decoration: BoxDecoration(
+          color: Colors.black,
+          image: DecorationImage(
+            image: FileImage(file),
+            fit: BoxFit.contain,
+          ),
+        ),
+      );
+
+  ///
+  FileImageBackground copyWith({
+    File? file,
+  }) {
+    return FileImageBackground(
+      file: file ?? this.file,
+    );
+  }
+
+  @override
+  String toString() => 'FileImageBackground(file: $file.path)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is FileImageBackground && other.file.path == file.path;
+  }
+
+  @override
+  int get hashCode => file.hashCode;
 }

@@ -4,6 +4,7 @@ import 'package:drishya_picker/src/animations/animations.dart';
 import 'package:drishya_picker/src/camera/src/widgets/ui_handler.dart';
 import 'package:drishya_picker/src/editor/editor.dart';
 import 'package:drishya_picker/src/editor/src/widgets/widgets.dart';
+import 'package:drishya_picker/src/image_cropper/image_cropper.dart';
 import 'package:flutter/material.dart';
 
 final PageStorageBucket _bucket = PageStorageBucket();
@@ -30,6 +31,39 @@ class EditorButtonCollection extends StatefulWidget {
 
 class _EditorButtonCollectionState extends State<EditorButtonCollection> {
   _EditingOption? _currentOption;
+
+  Future<void> _onImageCropperIconPressed(BuildContext context) async {
+    final controller = widget.controller;
+
+    if (controller.currentBackground is DrishyaBackground ||
+        controller.currentBackground is FileImageBackground) {
+      final file = (controller.currentBackground is FileImageBackground)
+          ? (controller.currentBackground as FileImageBackground).file
+          : (await (controller.currentBackground as DrishyaBackground)
+              .entity
+              .file);
+      if (file != null && context.mounted) {
+        await Navigator.of(context).push<ImageCropper>(
+          MaterialPageRoute(
+            builder: (context) {
+              return ImageCropper(
+                input: file,
+                callback: (output) async {
+                  if (context.mounted) Navigator.of(context).pop();
+                  controller.backgroundNotifier.value = FileImageBackground(
+                    file: output,
+                  );
+                },
+              );
+            },
+          ),
+        );
+        return;
+      }
+    } else {
+      UIHandler.of(context).showSnackBar('Cropping is not available!');
+    }
+  }
 
   void _onTextAlignButtonPressed(BuildContext context) {
     late TextAlign textAlign;
@@ -138,6 +172,14 @@ class _EditorButtonCollectionState extends State<EditorButtonCollection> {
         onPressed: _onStickerIconPressed,
         disableOnpressed: true,
       ),
+      if (widget.controller.currentBackground is DrishyaBackground ||
+          widget.controller.currentBackground is FileImageBackground)
+        _EditingOption(
+          id: 'image-cropper',
+          icon: Icons.crop,
+          onPressed: _onImageCropperIconPressed,
+          disableOnpressed: true,
+        ),
     ];
   }
 

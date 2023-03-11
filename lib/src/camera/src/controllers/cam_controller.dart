@@ -241,14 +241,13 @@ class CamController extends ValueNotifier<CamValue> {
       await controller.setFlashMode(FlashMode.off);
 
       final file = File(xFile.path);
-      final bytes = await file.readAsBytes();
 
       if (_setting.editAfterCapture) {
         await controller.pausePreview();
         final route = SlideTransitionPageRoute<DrishyaEntity?>(
           builder: DrishyaEditor(
             setting: _photoEditorSetting.copyWith(
-              backgrounds: [MemoryAssetBackground(bytes: bytes)],
+              backgrounds: [FileImageBackground(file: file)],
             ),
           ),
           setting: const CustomRouteSetting(
@@ -268,6 +267,8 @@ class CamController extends ValueNotifier<CamValue> {
         );
         return de;
       } else {
+        final bytes = await file.readAsBytes();
+
         final entity = await PhotoManager.editor.saveImage(
           bytes,
           title: path.basename(file.path),

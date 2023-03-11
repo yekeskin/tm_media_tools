@@ -7,26 +7,24 @@ environment:
   sdk: ">=2.13.0 <3.0.0"
 
 dependencies:
-  camera: ^0.9.8+1
+  camera: ^0.10.3+2
   collection: ^1.16.0
+  extended_image: ^7.0.2
   flutter:
     sdk: flutter
   meta: ^1.7.0
   path: ^1.8.1
-  photo_manager: ^2.1.4
+  path_provider: ^2.0.13
+  photo_manager: ^2.5.1
+  tm_native_media: ^0.0.1
   uuid: ^3.0.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  very_good_analysis: ^3.0.1
+  very_good_analysis: ^4.0.0+1
 
 flutter:
   uses-material-design: true
   assets:
     - lib/assets/camera.png
-
-  fonts:
-    - family: CustomIcons
-      fonts:
-        - asset: lib/assets/fonts/CustomIcons.ttf

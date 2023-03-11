@@ -6,6 +6,7 @@ import 'package:drishya_picker/src/editor/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:meta/meta.dart';
+import 'package:path/path.dart';
 import 'package:uuid/uuid.dart';
 
 /// Drishya editing controller
@@ -169,12 +170,14 @@ class DrishyaEditingController extends ValueNotifier<EditorValue> {
         // If background is drishya background and user has not edit the image
         // return its enity
         return bg.entity;
-      } else if (bg is MemoryAssetBackground && !value.hasStickers) {
+      } else if (bg is FileImageBackground && !value.hasStickers) {
         // If background is memory bytes background and user has not edited the
         // image, create entity and return it
-        final entity = await PhotoManager.editor.saveImage(
-          bg.bytes,
-          title: const Uuid().v4(),
+        final title = '${const Uuid().v4()}${extension(bg.file.path)}';
+
+        final entity = await PhotoManager.editor.saveImageWithPath(
+          bg.file.path,
+          title: title,
         );
         return entity?.toDrishya;
       } else {
@@ -185,9 +188,11 @@ class DrishyaEditingController extends ValueNotifier<EditorValue> {
         final image = await boundary!.toImage();
         final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
         final data = byteData!.buffer.asUint8List();
+
+        final title = '${const Uuid().v4()}.png';
         final entity = await PhotoManager.editor.saveImage(
           data,
-          title: const Uuid().v4(),
+          title: title,
         );
         return entity?.toDrishya;
       }
