@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
-import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
 /// State of the panel
@@ -36,10 +35,6 @@ class PanelSetting {
     this.headerHeight = kToolbarHeight,
     this.thumbHandlerHeight = 25.0,
     this.snapingPoint = 0.4,
-    this.headerBackground = Colors.black,
-    this.foregroundColor = Colors.black,
-    this.backgroundColor = Colors.black,
-    this.overlayStyle = SystemUiOverlayStyle.light,
   }) : assert(
           snapingPoint >= 0.0 && snapingPoint <= 1.0,
           '[snapingPoint] value must be between 1.0 and 0.0',
@@ -75,23 +70,6 @@ class PanelSetting {
   /// Default: 0.4
   final double snapingPoint;
 
-  /// Background color for panel header,
-  /// Default: [Colors.black]
-  final Color headerBackground;
-
-  /// Background color for panel,
-  /// Default: [Colors.black]
-  final Color foregroundColor;
-
-  /// If [headerBackground] is missing [backgroundColor] will be applied
-  /// If [foregroundColor] is missing [backgroundColor] will be applied
-  ///
-  /// Default: [Colors.black]
-  final Color backgroundColor;
-
-  ///
-  final SystemUiOverlayStyle overlayStyle;
-
   /// Header max height
   double get headerMaxHeight => thumbHandlerHeight + headerHeight;
 
@@ -105,7 +83,6 @@ class PanelSetting {
     Color? headerBackground,
     Color? foregroundColor,
     Color? backgroundColor,
-    SystemUiOverlayStyle? overlayStyle,
   }) {
     return PanelSetting(
       maxHeight: maxHeight ?? this.maxHeight,
@@ -113,10 +90,6 @@ class PanelSetting {
       headerHeight: headerHeight ?? this.headerHeight,
       thumbHandlerHeight: thumbHandlerHeight ?? this.thumbHandlerHeight,
       snapingPoint: snapingPoint ?? this.snapingPoint,
-      headerBackground: headerBackground ?? this.headerBackground,
-      foregroundColor: foregroundColor ?? this.foregroundColor,
-      backgroundColor: backgroundColor ?? this.backgroundColor,
-      overlayStyle: overlayStyle ?? this.overlayStyle,
     );
   }
 
@@ -128,11 +101,7 @@ class PanelSetting {
       minHeight: $minHeight, 
       headerHeight: $headerHeight, 
       thumbHandlerHeight: $thumbHandlerHeight, 
-      snapingPoint: $snapingPoint, 
-      headerBackground: $headerBackground, 
-      foregroundColor: $foregroundColor, 
-      backgroundColor: $backgroundColor, 
-      overlayStyle: $overlayStyle
+      snapingPoint: $snapingPoint
     )''';
   }
 
@@ -145,11 +114,7 @@ class PanelSetting {
         other.minHeight == minHeight &&
         other.headerHeight == headerHeight &&
         other.thumbHandlerHeight == thumbHandlerHeight &&
-        other.snapingPoint == snapingPoint &&
-        other.headerBackground == headerBackground &&
-        other.foregroundColor == foregroundColor &&
-        other.backgroundColor == backgroundColor &&
-        other.overlayStyle == overlayStyle;
+        other.snapingPoint == snapingPoint;
   }
 
   @override
@@ -158,11 +123,7 @@ class PanelSetting {
         minHeight.hashCode ^
         headerHeight.hashCode ^
         thumbHandlerHeight.hashCode ^
-        snapingPoint.hashCode ^
-        headerBackground.hashCode ^
-        foregroundColor.hashCode ^
-        backgroundColor.hashCode ^
-        overlayStyle.hashCode;
+        snapingPoint.hashCode;
   }
 }
 

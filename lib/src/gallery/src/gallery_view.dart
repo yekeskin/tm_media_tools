@@ -238,106 +238,101 @@ class _ViewState extends State<_View> with SingleTickerProviderStateMixin {
     final actionMode =
         _controller.setting.selectionMode == SelectionMode.actionBased;
 
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: panelSetting.overlayStyle,
-      child: WillPopScope(
-        onWillPop: _onClosePressed,
-        child: Scaffold(
-          backgroundColor: Colors.black,
-          body: Stack(
-            fit: StackFit.expand,
-            children: [
-              // Header
-              Align(
-                alignment: Alignment.topCenter,
-                child: GalleryHeader(
-                  controller: _controller,
-                  albums: _albums,
-                  onClose: _onClosePressed,
-                  onAlbumToggle: _toogleAlbumList,
-                ),
+    return WillPopScope(
+      onWillPop: _onClosePressed,
+      child: Scaffold(
+        body: Stack(
+          fit: StackFit.expand,
+          children: [
+            // Header
+            Align(
+              alignment: Alignment.topCenter,
+              child: GalleryHeader(
+                controller: _controller,
+                albums: _albums,
+                onClose: _onClosePressed,
+                onAlbumToggle: _toogleAlbumList,
               ),
+            ),
 
-              // Body
-              Column(
-                children: [
-                  // Header space
-                  Builder(
-                    builder: (context) {
-                      // Header space for full screen mode
-                      if (_controller.fullScreenMode) {
-                        return SizedBox(height: panelSetting.headerMaxHeight);
-                      }
+            // Body
+            Column(
+              children: [
+                // Header space
+                Builder(
+                  builder: (context) {
+                    // Header space for full screen mode
+                    if (_controller.fullScreenMode) {
+                      return SizedBox(height: panelSetting.headerMaxHeight);
+                    }
 
-                      // Toogling size for header hiding animation
-                      return ValueListenableBuilder<PanelValue>(
-                        valueListenable: _panelController,
-                        builder: (context, value, child) {
-                          final height = (panelSetting.headerMaxHeight *
-                                  value.factor *
-                                  1.2)
-                              .clamp(
-                            panelSetting.thumbHandlerHeight,
-                            panelSetting.headerMaxHeight,
-                          );
-                          return SizedBox(height: height);
-                        },
-                      );
+                    // Toogling size for header hiding animation
+                    return ValueListenableBuilder<PanelValue>(
+                      valueListenable: _panelController,
+                      builder: (context, value, child) {
+                        final height =
+                            (panelSetting.headerMaxHeight * value.factor * 1.2)
+                                .clamp(
+                          panelSetting.thumbHandlerHeight,
+                          panelSetting.headerMaxHeight,
+                        );
+                        return SizedBox(height: height);
+                      },
+                    );
 //
-                    },
-                  ),
+                  },
+                ),
 
-                  // Gallery grid
-                  Expanded(
-                    child: GalleryGridView(
-                      controller: _controller,
-                      albums: _albums,
-                      onClosePressed: _onClosePressed,
-                    ),
+                // Gallery grid
+                Expanded(
+                  child: GalleryGridView(
+                    controller: _controller,
+                    albums: _albums,
+                    onClosePressed: _onClosePressed,
                   ),
-                ],
+                ),
+              ],
+            ),
+
+            // Send and edit button
+            if (!actionMode)
+              GalleryAssetSelector(
+                controller: _controller,
+                albums: _albums,
               ),
 
-              // Send and edit button
-              if (!actionMode)
-                GalleryAssetSelector(
-                  controller: _controller,
-                  albums: _albums,
-                ),
-
-              // Send button
-              if (actionMode)
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: SendButton(controller: _controller),
-                ),
-
-              // Album list
-              AnimatedBuilder(
-                animation: _animation,
-                builder: (context, child) {
-                  final offsetY = panelSetting.headerMaxHeight +
-                      (panelSetting.maxHeight! - panelSetting.headerMaxHeight) *
-                          (1 - _animation.value);
-                  return Visibility(
-                    visible: _animation.value > 0.0,
-                    child: Transform.translate(
-                      offset: Offset(0, offsetY),
-                      child: child,
-                    ),
-                  );
-                },
-                child: AlbumsPage(
-                  albums: _albums,
-                  controller: _controller,
-                  onAlbumChange: _onAlbumChange,
-                ),
+            // Send button
+            if (actionMode)
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: SendButton(controller: _controller),
               ),
 
-              //
-            ],
-          ),
+            // Album list
+            AnimatedBuilder(
+              animation: _animation,
+              builder: (context, child) {
+                final offsetY = panelSetting.headerMaxHeight +
+                    (panelSetting.maxHeight! - panelSetting.headerMaxHeight) *
+                        (1 - _animation.value);
+                return Visibility(
+                  visible: _animation.value > 0.0,
+                  child: Transform.translate(
+                    offset: Offset(0, offsetY),
+                    child: child,
+                  ),
+                );
+              },
+              child: AlbumsPage(
+                albums: _albums,
+                controller: _controller,
+                onAlbumChange: _onAlbumChange,
+              ),
+            ),
+
+            //
+          ],
         ),
       ),
     );
