@@ -123,12 +123,8 @@ class CamController extends ValueNotifier<CamValue> {
   ///
   /// Change camera type
   void changeCameraType(CameraType type) {
-    final canSwitch = value.lensDirection != CameraLensDirection.front;
     if (type == CameraType.video) {
       cameraController?.prepareForVideoRecording();
-    }
-    if (canSwitch) {
-      switchCameraDirection(CameraLensDirection.front);
     }
     value = value.copyWith(cameraType: type);
   }
