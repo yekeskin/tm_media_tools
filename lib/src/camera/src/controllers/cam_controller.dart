@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:drishya_picker/drishya_picker.dart';
 import 'package:drishya_picker/src/animations/animations.dart';
+import 'package:drishya_picker/src/local_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as path;
@@ -266,7 +267,7 @@ class CamController extends ValueNotifier<CamValue> {
           flashMode: FlashMode.off,
         );
         return de;
-      } else {
+      } else if (editorSetting.addToGallery) {
         final bytes = await file.readAsBytes();
 
         final entity = await PhotoManager.editor.saveImage(
@@ -296,6 +297,19 @@ class CamController extends ValueNotifier<CamValue> {
 
           return null;
         }
+      } else {
+        final bytes = await file.readAsBytes();
+
+        final entity = await LocalEntity.fromImageFile(
+          file,
+          pickedThumbData: bytes,
+        );
+
+        if (navigator.mounted) {
+          navigator.pop([entity]);
+        }
+
+        return entity;
       }
     } on CameraException catch (e) {
       value = value.copyWith(isTakingPicture: false, error: e);
@@ -387,30 +401,46 @@ class CamController extends ValueNotifier<CamValue> {
         value = value.copyWith(isRecordingVideo: false);
 
         if (createEntity) {
-          final file = File(xfile.path);
-          final entity = await PhotoManager.editor.saveVideo(
-            file,
-            title: path.basename(file.path),
-          );
-          if (file.existsSync()) {
-            file.deleteSync();
-          }
-
-          if (entity != null) {
-            final drishyaEntity = entity.toDrishya.copyWith(
-              pickedFile: file,
+          if (editorSetting.addToGallery) {
+            final file = File(xfile.path);
+            final entity = await PhotoManager.editor.saveVideo(
+              file,
+              title: path.basename(file.path),
             );
-            if (navigator.mounted) {
-              navigator.pop([drishyaEntity]);
+            if (file.existsSync()) {
+              file.deleteSync();
             }
-            return drishyaEntity;
+
+            if (entity != null) {
+              final drishyaEntity = entity.toDrishya.copyWith(
+                pickedFile: file,
+              );
+              if (navigator.mounted) {
+                navigator.pop([drishyaEntity]);
+              }
+              return drishyaEntity;
+            } else {
+              final exception = CameraException(
+                'stopVideoRecording',
+                'Something went wrong! Please try again',
+              );
+              value = value.copyWith(error: exception);
+              return null;
+            }
           } else {
-            final exception = CameraException(
-              'stopVideoRecording',
-              'Something went wrong! Please try again',
+            final file = File(xfile.path);
+            final bytes = await file.readAsBytes();
+
+            final entity = await LocalEntity.fromVideoFile(
+              file,
+              pickedThumbData: bytes,
             );
-            value = value.copyWith(error: exception);
-            return null;
+
+            if (navigator.mounted) {
+              navigator.pop([entity]);
+            }
+
+            return entity;
           }
         }
         return null;

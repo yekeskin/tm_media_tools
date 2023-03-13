@@ -11,6 +11,7 @@ class EditorSetting {
     this.backgrounds = _defaultBackgrounds,
     this.fixedTabSize = 4,
     this.colors = _colors,
+    this.addToGallery = true,
   });
 
   /// Stickers for the editor
@@ -27,18 +28,25 @@ class EditorSetting {
   ///  Colors will be used to change icon/text colors
   final List<Color> colors;
 
+  ///
+  /// If false, created media files will not be added to the gallery and
+  /// temp files will be returned.
+  final bool addToGallery;
+
   /// Helper function to copy object
   EditorSetting copyWith({
     Map<String, Set<Sticker>>? stickers,
     List<EditorBackground>? backgrounds,
     int? fixedTabSize,
     List<Color>? colors,
+    bool addToGallery = false,
   }) {
     return EditorSetting(
       stickers: stickers ?? this.stickers,
       backgrounds: backgrounds ?? this.backgrounds,
       fixedTabSize: fixedTabSize ?? this.fixedTabSize,
       colors: colors ?? this.colors,
+      addToGallery: this.addToGallery,
     );
   }
 
@@ -55,7 +63,8 @@ class EditorSetting {
       stickers: $stickers, 
       backgrounds: $backgrounds, 
       fixedTabSize: $fixedTabSize, 
-      colors: $colors
+      colors: $colors,
+      addToGallery: $addToGallery
     )''';
   }
 
@@ -68,7 +77,8 @@ class EditorSetting {
         collectionEquals(other.stickers, stickers) &&
         collectionEquals(other.backgrounds, backgrounds) &&
         other.fixedTabSize == fixedTabSize &&
-        collectionEquals(other.colors, colors);
+        collectionEquals(other.colors, colors) &&
+        other.addToGallery == addToGallery;
   }
 
   @override
@@ -76,7 +86,8 @@ class EditorSetting {
     return stickers.hashCode ^
         backgrounds.hashCode ^
         fixedTabSize.hashCode ^
-        colors.hashCode;
+        colors.hashCode ^
+        addToGallery.hashCode;
   }
 }
 

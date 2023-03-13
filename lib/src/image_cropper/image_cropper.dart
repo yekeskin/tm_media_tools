@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
+import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:tm_native_media/tm_native_media.dart';
 
@@ -109,7 +109,10 @@ class ImageCropperState extends State<ImageCropper> {
                             final tempDir = await getTemporaryDirectory();
                             tempDir.createSync(recursive: true);
                             outputFile = File(
-                              '${tempDir.path}crop_${basename(widget.input.path)}',
+                              path.join(
+                                tempDir.path,
+                                'crop_${path.basename(widget.input.path)}',
+                              ),
                             );
                           }
 

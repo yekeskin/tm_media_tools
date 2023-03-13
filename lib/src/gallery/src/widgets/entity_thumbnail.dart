@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:drishya_picker/drishya_picker.dart';
@@ -101,7 +100,7 @@ class _MediaThumbnailProvider extends ImageProvider<_MediaThumbnailProvider> {
     DecoderCallback decode,
   ) async {
     assert(key == this, 'Checks _MediaThumbnailProvider');
-    final bytes = await entity.thumbnailData;
+    final bytes = entity.pickedThumbData ?? await entity.thumbnailData;
     onBytesLoaded?.call(bytes);
     return decode(bytes!);
   }

@@ -1,12 +1,15 @@
+import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:drishya_picker/drishya_picker.dart';
 import 'package:drishya_picker/src/camera/src/widgets/ui_handler.dart';
 import 'package:drishya_picker/src/editor/src/widgets/widgets.dart';
+import 'package:drishya_picker/src/local_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:meta/meta.dart';
-import 'package:path/path.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
 /// Drishya editing controller
@@ -173,13 +176,24 @@ class DrishyaEditingController extends ValueNotifier<EditorValue> {
       } else if (bg is FileImageBackground && !value.hasStickers) {
         // If background is memory bytes background and user has not edited the
         // image, create entity and return it
-        final title = '${const Uuid().v4()}${extension(bg.file.path)}';
+        final title = '${const Uuid().v4()}${path.extension(bg.file.path)}';
 
-        final entity = await PhotoManager.editor.saveImageWithPath(
-          bg.file.path,
-          title: title,
-        );
-        return entity?.toDrishya;
+        if (setting.addToGallery) {
+          final entity = await PhotoManager.editor.saveImageWithPath(
+            bg.file.path,
+            title: title,
+          );
+          return entity?.toDrishya;
+        } else {
+          final bytes = await bg.file.readAsBytes();
+
+          final entity = await LocalEntity.fromImageFile(
+            bg.file,
+            pickedThumbData: bytes,
+          );
+
+          return entity;
+        }
       } else {
         // If user has edited the background take screenshot
         // todo: remove screenshot approach, edit image properly
@@ -190,11 +204,28 @@ class DrishyaEditingController extends ValueNotifier<EditorValue> {
         final data = byteData!.buffer.asUint8List();
 
         final title = '${const Uuid().v4()}.png';
-        final entity = await PhotoManager.editor.saveImage(
-          data,
-          title: title,
-        );
-        return entity?.toDrishya;
+
+        if (setting.addToGallery) {
+          final entity = await PhotoManager.editor.saveImage(
+            data,
+            title: title,
+          );
+          return entity?.toDrishya;
+        } else {
+          final tempDir = await getTemporaryDirectory();
+          final outputFile = File(
+            path.join(tempDir.path, title),
+          );
+          await outputFile.create(recursive: true);
+          await outputFile.writeAsBytes(data);
+
+          final entity = await LocalEntity.fromImageFile(
+            outputFile,
+            pickedThumbData: data,
+          );
+
+          return entity;
+        }
       }
     } catch (e) {
       onException?.call(

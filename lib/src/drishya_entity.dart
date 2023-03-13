@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:drishya_picker/drishya_picker.dart';
+import 'package:drishya_picker/src/local_entity.dart';
 
 ///
 class DrishyaEntity extends AssetEntity {
@@ -94,20 +95,26 @@ class DrishyaEntity extends AssetEntity {
 /// AssetEntity extension
 extension AssetEntityX on AssetEntity {
   /// Convert [AssetEntity] to [DrishyaEntity]
-  DrishyaEntity get toDrishya => DrishyaEntity(
-        id: id,
-        width: width,
-        height: height,
-        typeInt: typeInt,
-        duration: duration,
-        orientation: orientation,
-        isFavorite: isFavorite,
-        title: title,
-        createDateSecond: createDateSecond,
-        modifiedDateSecond: modifiedDateSecond,
-        relativePath: relativePath,
-        latitude: latitude,
-        longitude: longitude,
-        mimeType: mimeType,
-      );
+  DrishyaEntity get toDrishya {
+    if (this is LocalEntity) {
+      return (this as LocalEntity).copyWith();
+    }
+
+    return DrishyaEntity(
+      id: id,
+      width: width,
+      height: height,
+      typeInt: typeInt,
+      duration: duration,
+      orientation: orientation,
+      isFavorite: isFavorite,
+      title: title,
+      createDateSecond: createDateSecond,
+      modifiedDateSecond: modifiedDateSecond,
+      relativePath: relativePath,
+      latitude: latitude,
+      longitude: longitude,
+      mimeType: mimeType,
+    );
+  }
 }
