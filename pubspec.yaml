@@ -16,7 +16,7 @@ dependencies:
   path: ^1.8.1
   path_provider: ^2.0.13
   photo_manager: ^2.5.1
-  tm_native_media: ^0.0.1
+  tm_native_media: ^0.0.2
   uuid: ^3.0.6
 
 dev_dependencies:
