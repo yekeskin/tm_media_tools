@@ -174,15 +174,11 @@ class GalleryController extends ValueNotifier<GalleryValue> {
   Future<DrishyaEntity?> openCamera(BuildContext context) async {
     final uiHandler = UIHandler.of(context);
 
-    final route = SlideTransitionPageRoute<List<DrishyaEntity>>(
-      builder: CameraView(
+    final route = MaterialPageRoute<List<DrishyaEntity>>(
+      builder: (context) => CameraView(
         setting: _cameraSetting.copyWith(enableGallery: false),
         editorSetting: _cameraTextEditorSetting,
         photoEditorSetting: _cameraPhotoEditorSetting,
-      ),
-      setting: const CustomRouteSetting(
-        start: TransitionFrom.leftToRight,
-        reverse: TransitionFrom.rightToLeft,
       ),
     );
 
@@ -227,15 +223,11 @@ class GalleryController extends ValueNotifier<GalleryValue> {
     //
     final uiHandler = UIHandler.of(context);
 
-    final route = SlideTransitionPageRoute<DrishyaEntity>(
-      builder: DrishyaEditor(
+    final route = MaterialPageRoute<DrishyaEntity>(
+      builder: (context) => DrishyaEditor(
         setting: _editorSetting.copyWith(
           backgrounds: [DrishyaBackground(entity: entity)],
         ),
-      ),
-      setting: const CustomRouteSetting(
-        start: TransitionFrom.rightToLeft,
-        reverse: TransitionFrom.leftToRight,
       ),
     );
 

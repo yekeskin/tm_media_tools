@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:drishya_picker/drishya_picker.dart';
-import 'package:drishya_picker/src/animations/animations.dart';
 import 'package:drishya_picker/src/local_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
@@ -241,15 +240,11 @@ class CamController extends ValueNotifier<CamValue> {
 
       if (_setting.editAfterCapture) {
         await controller.pausePreview();
-        final route = SlideTransitionPageRoute<DrishyaEntity?>(
-          builder: DrishyaEditor(
+        final route = MaterialPageRoute<DrishyaEntity?>(
+          builder: (context) => DrishyaEditor(
             setting: _photoEditorSetting.copyWith(
               backgrounds: [FileImageBackground(file: file)],
             ),
-          ),
-          setting: const CustomRouteSetting(
-            start: TransitionFrom.rightToLeft,
-            reverse: TransitionFrom.leftToRight,
           ),
         );
         final de = await navigator.push(route);
