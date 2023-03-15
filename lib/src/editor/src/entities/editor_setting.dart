@@ -39,14 +39,14 @@ class EditorSetting {
     List<EditorBackground>? backgrounds,
     int? fixedTabSize,
     List<Color>? colors,
-    bool addToGallery = false,
+    bool? addToGallery,
   }) {
     return EditorSetting(
       stickers: stickers ?? this.stickers,
       backgrounds: backgrounds ?? this.backgrounds,
       fixedTabSize: fixedTabSize ?? this.fixedTabSize,
       colors: colors ?? this.colors,
-      addToGallery: this.addToGallery,
+      addToGallery: addToGallery ?? this.addToGallery,
     );
   }
 
